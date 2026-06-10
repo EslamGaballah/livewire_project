@@ -12,7 +12,7 @@
                     <div class="row">
                         @if($post->image != '')
                             <div class="col-12 text-center">
-                                <img src="{{ asset('assets/images/'.$post->image) }}" class="img-fluid" style="max-width: 100%" alt="{{ $post->title }}">
+                                <img src="{{ asset('storage/'.$post->image) }}" class="img-fluid" style="max-width: 100%" alt="{{ $post->title }}">
                             </div>
                         @endif
 

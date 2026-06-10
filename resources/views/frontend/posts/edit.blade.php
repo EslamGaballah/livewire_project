@@ -11,7 +11,7 @@
                 <div class="card-body">
                     <form action="{{ route('posts.update', $post->id) }}" method="post" enctype="multipart/form-data">
                         @csrf
-                        @method('PATCH')
+                        @method('put')
                         <div class="form-group">
                             <label for="title">Title</label>
                             <input type="text" name="title" value="{{ old('title', $post->title) }}" class="form-control">
@@ -20,7 +20,7 @@
 
                         <div class="form-group">
                             <label for="category">Category</label>
-                            <select name="category" class="form-control">
+                            <select name="category_id" class="form-control">
                                 <option></option>
                                 @foreach($categories as $category)
                                     <option value="{{ $category->id }}" {{ old('category', $post->category_id) == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
@@ -37,7 +37,7 @@
 
                         @if($post->image != '')
                             <div class="form-group">
-                                <img src="{{ asset('assets/images/' . $post->image) }}" alt="{{ $post->title }}" width="100">
+                                <img src="{{ asset('storage/' . $post->image) }}" alt="{{ $post->title }}" width="100">
                             </div>
                         @endif
 
