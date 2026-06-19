@@ -1,66 +1,57 @@
-@extends('layouts.app')
-@section('content')
-
-{{-- @livewire('posts.edit', ['post_id' => $id]) --}}
-
-<livewire:posts.edit :post_id="$id" />
-
-
-{{-- 
+<div>
     <div class="row justify-content-center">
         <div class="col-12">
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
-                    <b>Edit  Post</b>
-                    <a href="{{ route('posts.index') }}" class="btn btn-primary btn-sm ">Back</a>
+                    <b>Posts</b>
+                    <a href="javascript:void(0);" wire:click="return_to_posts" class="btn btn-primary btn-sm ">Back</a>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('posts.update', $post->id) }}" method="post" enctype="multipart/form-data">
-                        @csrf
-                        @method('put')
+
+                    <form wire:submit.prevent="update" enctype="multipart/form-data">
                         <div class="form-group">
                             <label for="title">Title</label>
-                            <input type="text" name="title" value="{{ old('title', $post->title) }}" class="form-control">
+                            <input type="text" name="title" wire:model="title" class="form-control">
                             @error('title')<span class="text-danger">{{ $message }}</span>@enderror
                         </div>
 
                         <div class="form-group">
                             <label for="category">Category</label>
-                            <select name="category_id" class="form-control">
+                            <select name="category_id" wire:model="category_id" class="form-control">
                                 <option></option>
                                 @foreach($categories as $category)
-                                    <option value="{{ $category->id }}" {{ old('category', $post->category_id) == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
+                                    <option value="{{ $category->id }}" {{ old('category') == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
                                 @endforeach
                             </select>
-                            @error('category')<span class="text-danger">{{ $message }}</span>@enderror
+                            @error('category_id')<span class="text-danger">{{ $message }}</span>@enderror
                         </div>
 
                         <div class="form-group">
                             <label for="body">Body</label>
-                            <textarea name="body" class="form-control" rows="5">{{ old('body', $post->body) }}</textarea>
+                            <textarea name="body" class="form-control" wire:model="body" rows="5"></textarea>
                             @error('body')<span class="text-danger">{{ $message }}</span>@enderror
                         </div>
 
-                        @if($post->image != '')
+                        @if($old_image != '')
                             <div class="form-group">
-                                <img src="{{ asset('storage/' . $post->image) }}" alt="{{ $post->title }}" width="100">
+                                <img src="{{ asset('storage/'. $old_image) }}" alt="{{ $this->title }}" width="100">
                             </div>
                         @endif
 
                         <div class="form-group">
                             <label for="image">Image</label>
-                            <input type="file" name="image" class="custom-file">
+                            <input type="file" name="image" wire:model="image" class="custom-file" >
                             @error('image')<span class="text-danger">{{ $message }}</span>@enderror
                         </div>
 
                         <div class="text-center">
-                            <input type="submit" name="save" value="Update Post" class="btn btn-primary">
+                            <input type="submit" name="save" value="update Post" class="btn btn-primary">
                         </div>
                     </form>
+
 
                 </div>
             </div>
         </div>
-    </div> --}}
-
-@endsection
+    </div>
+</div>

@@ -1,3 +1,4 @@
+<h1 style="color:red">NAVIGATION TEST</h1>
 <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
     <div class="container">
 
@@ -13,7 +14,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <div class="collapse navbar-collapse" id="navbarNav">
+        <div class="collapse navbar-collapse " id="navbarNav">
 
             <ul class="navbar-nav me-auto">
 
@@ -44,7 +45,7 @@
 
                             <li>
                                 <a class="dropdown-item"
-                                   href="{{ route('profile.edit') }}">
+                                   {{-- href="{{ route('profile.edit') }}"> --}}
                                     Profile
                                 </a>
                             </li>

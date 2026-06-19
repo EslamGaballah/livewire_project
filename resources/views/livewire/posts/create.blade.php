@@ -1,45 +1,40 @@
-@extends('layouts.app')
-@section('content')
-
-
-<livewire:posts.create />
-
-    {{-- <div class="row justify-content-center">
+<div>
+    <div class="row justify-content-center">
         <div class="col-12">
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
-                    <b>Create New Post</b>
-                    <a href="{{ route('posts.index') }}" class="btn btn-primary btn-sm ">Posts</a>
+                    <b>Posts</b>
+                    <a href="javascript:void(0);" wire:click="return_to_posts" class="btn btn-primary btn-sm -auto">Back</a>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('posts.store') }}" method="post" enctype="multipart/form-data">
-                        @csrf
+
+                    <form wire:submit.prevent="save" enctype="multipart/form-data">
                         <div class="form-group">
                             <label for="title">Title</label>
-                            <input type="text" name="title" value="{{ old('title') }}" class="form-control">
+                            <input type="text" name="title" wire:model="title" class="form-control">
                             @error('title')<span class="text-danger">{{ $message }}</span>@enderror
                         </div>
 
                         <div class="form-group">
                             <label for="category">Category</label>
-                            <select name="category_id" class="form-control">
+                            <select name="category_id" wire:model="category_id" class="form-control">
                                 <option value="" selected disabled>Choose Category</option>
                                 @foreach($categories as $category)
                                     <option value="{{ $category->id }}" {{ old('category') == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
                                 @endforeach
                             </select>
-                            @error('category')<span class="text-danger">{{ $message }}</span>@enderror
+                            @error('category_id')<span class="text-danger">{{ $message }}</span>@enderror
                         </div>
 
                         <div class="form-group">
                             <label for="body">Body</label>
-                            <textarea name="body" class="form-control" rows="5">{{ old('body') }}</textarea>
+                            <textarea name="body" class="form-control" wire:model="body" rows="5"></textarea>
                             @error('body')<span class="text-danger">{{ $message }}</span>@enderror
                         </div>
 
                         <div class="form-group">
                             <label for="image">Image</label>
-                            <input type="file" name="image" class="custom-file">
+                            <input type="file" name="image" class="custom-file" wire:model="image">
                             @error('image')<span class="text-danger">{{ $message }}</span>@enderror
                         </div>
 
@@ -48,9 +43,9 @@
                         </div>
                     </form>
 
+
                 </div>
             </div>
         </div>
-    </div> --}}
-
-@endsection
+    </div>
+</div>

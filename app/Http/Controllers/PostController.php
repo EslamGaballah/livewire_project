@@ -10,102 +10,115 @@ use Illuminate\Support\Facades\Storage;
 class PostController extends Controller
 {
     
-    public function index()
+    // public function index()
+    // {
+    //     $posts = Post::with(['user', 'category'])->orderBy('id', 'desc')->paginate(5);
+    //     Return view('frontend.posts.index', compact('posts'));
+    // }
+
+    public function index_livewire()
     {
-        $posts = Post::with(['user', 'category'])->orderBy('id', 'desc')->paginate(5);
-        Return view('frontend.posts.index', compact('posts'));
+        return view('frontend.posts.index');
     }
+    
 
-        public function create()
+    public function create()
     {
-        $categories = Category::all();
+        // $categories = Category::all();
+        // Return view('frontend.posts.create', compact('categories'));
 
-        Return view('frontend.posts.create', compact('categories'));
+        // livewire
+        return view('frontend.posts.create');
+
         
     }
 
-       public function store(Request $request)
-    {
-        $data = $request->validate([
-            'title'         => 'required|max:255',
-            'category_id'   => 'required|exists:categories,id',
-            'body'          => 'required',
-            'image'         => 'nullable|mimes:jpg,jpeg,gif,png,webp|max:2048',
-        ]);
+    // public function store(Request $request)
+    // {
+    //     $data = $request->validate([
+    //         'title'         => 'required|max:255',
+    //         'category_id'   => 'required|exists:categories,id',
+    //         'body'          => 'required',
+    //         'image'         => 'nullable|mimes:jpg,jpeg,gif,png,webp|max:2048',
+    //     ]);
         
-        $data['user_id'] = auth()->id();
+    //     $data['user_id'] = auth()->id();
 
-        // create images
-        if ($request->hasFile('image')) {
-            $image = $request->file('image');
-            $imageName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
-            $path = $image->storeAs('images', $imageName, 'public');  
+    //     // create images
+    //     if ($request->hasFile('image')) {
+    //         $image = $request->file('image');
+    //         $imageName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
+    //         $path = $image->storeAs('images', $imageName, 'public');  
 
-            $data['image'] = $path;
-        }
-        // dd($data);
+    //         $data['image'] = $path;
+    //     }
+    //     // dd($data);
 
-        Post::create($data);
+    //     Post::create($data);
 
-        return redirect()->route('posts.index')->with([
-            'message' => 'Post created successfully',
-            'alert-type' => 'success'
-        ]);
-    }
+    //     return redirect()->route('posts.index')->with([
+    //         'message' => 'Post created successfully',
+    //         'alert-type' => 'success'
+    //     ]);
+    // }
 
    
     public function show(string $id)
     {
         $post = Post::with(['user', 'category'])->findOrFail($id);
+        // return view('frontend.posts.show', compact('post'));
 
-        return view('frontend.posts.show', compact('post'));
+        // livewire
+        return view('frontend.posts.show', compact('id'));
     }
 
     
     public function edit(string $id)
     {
-        $post = Post::findOrFail($id);
-        $categories = Category::all();
+        // $post = Post::findOrFail($id);
+        // $categories = Category::all();
+        // return view('frontend.posts.edit', compact('post', 'categories'));
 
-        return view('frontend.posts.edit', compact('post', 'categories'));
+        // livewire
+        return view('frontend.posts.edit', compact('id'));
     }
 
-    public function update(Request $request, string $id)
-    {
-        $post = Post::findOrFail($id);
+//     public function update(Request $request, string $id)
+//     {
+//         $post = Post::findOrFail($id);
 
-        $data = $request->validate([
-            'title'       => 'required|max:255',
-            'category_id' => 'required|exists:categories,id',
-            'body'        => 'required',
-            'image'       => 'nullable|mimes:jpg,jpeg,png,gif,webp|max:2048',
-        ]);
+//         $data = $request->validate([
+//             'title'       => 'required|max:255',
+//             'category_id' => 'required|exists:categories,id',
+//             'body'        => 'required',
+//             'image'       => 'nullable|mimes:jpg,jpeg,png,gif,webp|max:2048',
+//         ]);
 
-        $data['user_id'] = auth()->id();
+//         $data['user_id'] = auth()->id();
 
-        // update image if exists
-        if ($request->hasFile('image')) {
+//         // update image if exists
+//         if ($request->hasFile('image')) {
 
-            // delete old image
-            if ($post->image && Storage::disk('public')->exists($post->image)) {
-                Storage::disk('public')->delete($post->image);
-            }
+//             // delete old image
+//             if ($post->image && Storage::disk('public')->exists($post->image)) {
+//                 Storage::disk('public')->delete($post->image);
+//             }
 
-            $image = $request->file('image');
-            $imageName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
+//             $image = $request->file('image');
+//             $imageName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
 
-            $path = $image->storeAs('images', $imageName, 'public');
+//             $path = $image->storeAs('images', $imageName, 'public');
 
-            $data['image'] = $path;
-        }
-// dd($request->all());
-        $post->update($data);
+//             $data['image'] = $path;
+//         }
+// // dd($request->all());
+//         $post->update($data);
 
-        return redirect()->route('posts.index')->with([
-            'message' => 'Post updated successfully',
-            'alert-type' => 'success'
-        ]);
-    }
+//         return redirect()->route('posts.index')->with([
+//             'message' => 'Post updated successfully',
+//             'alert-type' => 'success'
+//         ]);
+//     }
 
     public function destroy(string $id)
     {

@@ -13,26 +13,37 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+        @livewireStyles
     </head>
     <body class="font-sans antialiased">
-        {{-- <div class="min-h-screen bg-gray-100">
+        {{-- <div class="container-fluid bg-light"> --}}
+
             @include('layouts.navigation')
 
-            <!-- Page Heading -->
             @isset($header)
-                <header class="bg-white shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                <div class="bg-white shadow-sm border-bottom mb-4">
+                    <div class="container py-4">
                         {{ $header }}
                     </div>
-                </header>
-            @endisset
-        </div> --}}
-
-            <!-- Page Content -->
-            <main class="py-4">
-                <div class="container">
-                    @yield('content')
                 </div>
-            </main>
+            @endisset
+
+        {{-- </div> --}}
+        <!-- Page Content -->
+        <main class="py-4">
+            <div class="container">
+
+                @isset($slot)
+                    {{-- slot used to view content when we use route directly with out controller --}}
+                    {{ $slot }}
+                @else
+                    @yield('content')
+                @endisset
+                
+            </div>
+        </main>
+
+            @livewireScripts
     </body>
 </html>

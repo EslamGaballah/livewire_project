@@ -1,7 +1,8 @@
 @extends('layouts.app')
 @section('content')
+<livewire:posts.index />
 
-@if (session('message'))
+{{-- @if (session('message'))
     <div class="alert alert-{{ session('alert-type', 'success') }} alert-dismissible fade show" role="alert">
 
         {{ session('message') }}
@@ -57,6 +58,6 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
 @endsection
