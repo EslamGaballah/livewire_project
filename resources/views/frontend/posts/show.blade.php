@@ -1,11 +1,13 @@
 @extends('layouts.app')
 @section('content')
 
-    <div class="row justify-content-center">
+<livewire:posts.show :post_id="$id" />
+
+    {{-- <div class="row justify-content-center">
         <div class="col-12">
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
-                    <b>Create New Post</b>
+                    <b>show Post</b>
                     <a href="{{ route('posts.index') }}" class="btn btn-primary btn-sm ">Posts</a>
                 </div>
                 <div class="card-body">
@@ -29,6 +31,6 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
 @endsection

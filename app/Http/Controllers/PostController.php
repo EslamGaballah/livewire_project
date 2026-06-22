@@ -21,7 +21,6 @@ class PostController extends Controller
         return view('frontend.posts.index');
     }
     
-
     public function create()
     {
         // $categories = Category::all();
@@ -29,8 +28,6 @@ class PostController extends Controller
 
         // livewire
         return view('frontend.posts.create');
-
-        
     }
 
     // public function store(Request $request)
@@ -62,7 +59,6 @@ class PostController extends Controller
     //     ]);
     // }
 
-   
     public function show(string $id)
     {
         $post = Post::with(['user', 'category'])->findOrFail($id);
@@ -120,20 +116,20 @@ class PostController extends Controller
 //         ]);
 //     }
 
-    public function destroy(string $id)
-    {
-        $post = Post::findOrFail($id);
+    // public function destroy(string $id)
+    // {
+    //     $post = Post::findOrFail($id);
 
-        // delete image
-        if ($post->image && Storage::disk('public')->exists($post->image)) {
-            Storage::disk('public')->delete($post->image);
-        }
+    //     // delete image
+    //     if ($post->image && Storage::disk('public')->exists($post->image)) {
+    //         Storage::disk('public')->delete($post->image);
+    //     }
 
-        $post->delete();
+    //     $post->delete();
 
-        return redirect()->route('posts.index')->with([
-            'message' => 'Post deleted successfully',
-            'alert-type' => 'success'
-        ]);
-    }
+    //     return redirect()->route('posts.index')->with([
+    //         'message' => 'Post deleted successfully',
+    //         'alert-type' => 'success'
+    //     ]);
+    // }
 }

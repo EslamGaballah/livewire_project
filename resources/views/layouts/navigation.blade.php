@@ -1,4 +1,3 @@
-<h1 style="color:red">NAVIGATION TEST</h1>
 <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
     <div class="container">
 

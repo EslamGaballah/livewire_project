@@ -48,7 +48,7 @@ class Index extends Component
 
     public function show_post($id)
     {
-        return redirect()->to('/posts/show');
+        return redirect()->to('/posts/'.$id);
     }
 
     public function edit_post($id)

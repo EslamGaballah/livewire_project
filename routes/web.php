@@ -18,8 +18,14 @@ Route::middleware('auth')->group(function () {
     // Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     // Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+    // controller crud step 1
         // Route::resource('/posts', PostController::class);
 
+    // with out controller step 2
+        // Route::livewire('/livewire/posts', Index::class)->name('Posts.index_livewire');
+
+
+    // Livewire crud step 3
         Route::get('/posts', [PostController::class, 'index_livewire'])
         ->name('posts.index_livewire');
 
@@ -31,6 +37,10 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/posts/{id}', [PostController::class, 'show'])
             ->name('posts.show');
+
+    // Livewire dynamic crud step 4
+         Route::get('/dynamic/posts', [PostController::class, 'index_livewire'])
+        ->name('posts.index_livewire');
 
 
 
