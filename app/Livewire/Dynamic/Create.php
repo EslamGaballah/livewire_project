@@ -1,13 +1,15 @@
 <?php
-namespace App\Livewire\Posts;
+
+namespace App\Livewire\Dynamic;
 
 use App\Models\Category;
 use App\Models\Post;
+use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
-class Create extends Component {
-
+class Create extends Component
+{
     use WithFileUploads;
 
     public  $title = '';
@@ -15,17 +17,16 @@ class Create extends Component {
     public  $category_id = '';
     public  $image = '';
 
+        
     public function render()
     {
-        $categories = Category::all();
-        return view('livewire.posts.create', [
-            'categories' => $categories
+
+        return view('livewire.dynamic.create', [
+            'categories' => Category::all()
         ]);
     }
 
-    
-
-    public function save()
+   public function save()
     {
         // dd($this->image);
 
@@ -49,17 +50,12 @@ class Create extends Component {
             $data['image'] = $path;
         }
  
-        Post::create($data);
+        $newPost = Post::create($data);
 
         $this->resetInputs();
 
-        // session()->flash('message', 'Post Created Successfully');
-        // session()->flash('alert-type', 'success');
+        $this->dispatch('postCreated', $newPost);
 
-        return redirect()->route('posts.index_livewire')->with([
-            'message' => 'Post Created Successfully',
-            'alert-type' => 'success',
-        ]);
     }
 
     private function resetInputs()
@@ -69,14 +65,5 @@ class Create extends Component {
         $this->body         = null;
         $this->image        = null;
     }
-
-    // back to posts
-    public function return_to_posts()
-    {
-        return redirect()->to('/posts');
-    }
-
     
-};
-?>
- 
+}

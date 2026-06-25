@@ -24,6 +24,14 @@
                     </a>
                 </li>
 
+                <li class="nav-item">
+                    <a class="nav-link "
+                       {{-- href="{{ route('posts-index') }}"> --}}
+                       href="http://127.0.0.1:8000/dynamic/posts">
+                        Dynamic Posts
+                    </a>
+                </li>
+
             </ul>
 
             @auth

@@ -2,7 +2,10 @@
 
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
-use App\Livewire\Posts\Index;
+use App\Livewire\Dynamic\Create;
+use App\Livewire\Dynamic\Edit;
+use App\Livewire\Dynamic\Index;
+use App\Livewire\Dynamic\Show;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -39,8 +42,15 @@ Route::middleware('auth')->group(function () {
             ->name('posts.show');
 
     // Livewire dynamic crud step 4
-         Route::get('/dynamic/posts', [PostController::class, 'index_livewire'])
-        ->name('posts.index_livewire');
+        //  Route::get('/dynamic/posts', 'dynamic.index');
+        //  Route::get('/dynamic/posts/create', 'dynamic.create');
+        //  Route::get('/dynamic/posts/{post-id}', 'dynamic.show');
+        //  Route::get('/dynamic/posts/{post-id}/edit', 'dynamic.edit');
+
+         Route::get('/dynamic/posts', Index::class);
+         Route::get('/dynamic/posts/create', Create::class);
+         Route::get('/dynamic/posts/{post-id}', Show::class);
+         Route::get('/dynamic/posts/{post-id}/edit', Edit::class);
 
 
 
